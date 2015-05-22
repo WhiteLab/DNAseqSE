@@ -127,7 +127,7 @@ sub output_stats
 		$json.="\"fraction_coverage$_\": \"".$fc."\",\n\t";
 	    }
 	    $tbl.= "$aligned_target_enrichment\t";
-	    $tbl.= "$sequenced_target_enrichment\n";
+	    $tbl.= "$sequenced_target_enrichment\N";
 	    $json.="\"aligned_target_enrichment\": \"".$aligned_target_enrichment."\",\n\t\"sequenced_target_enrichment\": \"".$sequenced_target_enrichment."\"\n}";
 	    #	    system($json);
 	    if($f == 1 || $f == 2){

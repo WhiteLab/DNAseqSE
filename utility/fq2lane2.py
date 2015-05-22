@@ -22,7 +22,6 @@ def fq2lane(fq_list,seqtype):
             info=f1.group(1).split('_')
             bid=f1.group(1)
             lane=f1.group(2)
-        line=next(fh)
         if bid not in cur:
             cur[bid]=[]
         cur[bid].append(lane)

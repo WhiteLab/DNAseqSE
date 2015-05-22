@@ -7,8 +7,8 @@ from log import log
 import subprocess
 
 def bwa_mem_se(bwa_tool,RGRP,bwa_ref,end1,samtools_tool,samtools_ref,sample,log_dir,threads):
-    bwa_cmd="(" + bwa_tool + " mem -t " + threads + " -R \"" + RGRP + "\" -v 2 " + bwa_ref + " " + end1 + " | " + samtools_tool + " view -bT " + samtools_ref + " - > " + sample + ".bam) > " + log_dir + sample + ".bwa.pe.log 2>&1"
-    loc=log_dir + sample + ".bwa.pe.log"
+    bwa_cmd="(" + bwa_tool + " mem -t " + threads + " -R \"" + RGRP + "\" -v 2 " + bwa_ref + " " + end1 + " | " + samtools_tool + " view -bT " + samtools_ref + " - > " + sample + ".bam) > " + log_dir + sample + ".bwa.se.log 2>&1"
+    loc=log_dir + sample + ".bwa.se.log"
     log(loc,date_time() + bwa_cmd + "\n")
     try:
         subprocess.check_output(bwa_cmd,shell=True)

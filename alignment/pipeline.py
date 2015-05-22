@@ -34,8 +34,13 @@ class Pipeline():
             self.sample=s.group(1)
         else:
             #s=re.match('(^\S+)_\D*\d\.f\w*q\.gz$',self.end1)
-            s=re.match('(^\S+)_\.f\w*q\.gz$',self.end1)
-            self.sample=s.group(1)
+            # T1_ATCACG_L005_R1_001.fastq.gz
+            s=re.match('(^\S+)\.f\w*q\.gz$',self.end1)
+            try:
+                self.sample=s.group(1)
+            except:
+                sys.stderr.write('Could not fit pattern for ' + self.end1 + '\n')
+                exit(1)
         self.loc='LOGS/' + self.sample + '.pipe.log'
         HGACID=self.sample.split("_")
         self.bid=HGACID[0]
@@ -86,15 +91,17 @@ class Pipeline():
     
         wait_flag=1
         # check certain key processes
-        check=bwa_mem_pe(self.bwa_tool,RGRP,self.bwa_ref,self.end1,self.samtools_tool,self.samtools_ref,self.sample,log_dir,self.threads) # rest won't run until completed
+        
+        check=bwa_mem_se(self.bwa_tool,RGRP,self.bwa_ref,self.end1,self.samtools_tool,self.samtools_ref,self.sample,log_dir,self.threads) # rest won't run until completed
         if(check != 0):
             log(self.loc,date_time() + 'BWA failure for ' + self.sample + '\n')
             exit(1)
+        
         log(self.loc,date_time() + 'Getting fastq quality score stats\n')
-        fastx(self.fastx_tool,self.sample,self.end1) # will run independently of rest of output
+        fastx_se(self.fastx_tool,self.sample,self.end1) # will run independently of rest of output
         log(self.loc,date_time() + 'Sorting BAM file\n')
 
-        check=novosort_sort_pe(self.novosort,self.sample,log_dir,self.threads,self.ram) # rest won't run until completed
+        check=novosort_sort_se(self.novosort,self.sample,log_dir,self.threads,self.ram) # rest won't run until completed
         if(check != 0):
             log(self.loc,date_time() + 'novosort sort failure for ' + self.sample + '\n')
             exit(1)

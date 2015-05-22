@@ -14,7 +14,7 @@ def fastx_se(fastx_tool,sample,end1):
         log_dir='LOGS/'
     # assumes phred 64, try phred 33 if it fails
     loc=log_dir + sample + '.fastx.log'
-    fastx_cmd='gzip -dc ' + end1 + ' | ' + fastx_tool + ' -N -o ' + sample + '_1.qs'
+    fastx_cmd='gzip -dc ' + end1 + ' | ' + fastx_tool + ' -N -o ' + sample + '.qs'
     log(loc,date_time() + fastx_cmd + "\n")
     f1=Popen(fastx_cmd,shell=True,stdin=None,stdout=None,stderr=None,close_fds=True)
     # check after a minute whether the process is still good - shouldn't take too long to ascertain whether phred score didn't fit
@@ -23,7 +23,7 @@ def fastx_se(fastx_tool,sample,end1):
     if str(f1.poll()) == '1':
         try:
             log(loc,date_time() + 'Assuming phred 64 failed, trying phred 33\n')
-            fastx_cmd='gzip -dc ' + end1 + ' | ' + fastx_tool + ' -Q33 -N -o ' + sample + '_1.qs'
+            fastx_cmd='gzip -dc ' + end1 + ' | ' + fastx_tool + ' -Q33 -N -o ' + sample + '.qs'
             log(loc,date_time() + fastx_cmd + "\n")
             f1=Popen(fastx_cmd,shell=True,stdin=None,stdout=None,stderr=None,close_fds=True)
         except:

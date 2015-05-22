@@ -1,0 +1,51 @@
+>Thu May 21 23:01:17 2015
+Starting vm qc for sample set MB2015-SE1
+>Thu May 21 23:01:17 2015
+Booting up vm
+. /home/ubuntu/.novarc;nova boot vm_pipe_MB2015-SE1 --image 46ca96bf-f9b0-4e33-a6ce-07d8a8249a57 --flavor 13 --key_name mb_inst
+>Thu May 21 23:01:48 2015
+Checking success of vm boot. 30 seconds have passed
+Status of vm_pipe_MB2015-SE1 is BUILD with id aa7fc74b-a005-433c-96a5-a2eb305b11fe
+>Thu May 21 23:02:18 2015
+Checking success of vm boot. 60 seconds have passed
+Status of vm_pipe_MB2015-SE1 is BUILD with id aa7fc74b-a005-433c-96a5-a2eb305b11fe
+>Thu May 21 23:02:49 2015
+Checking success of vm boot. 90 seconds have passed
+Status of vm_pipe_MB2015-SE1 is BUILD with id aa7fc74b-a005-433c-96a5-a2eb305b11fe
+>Thu May 21 23:03:19 2015
+Checking success of vm boot. 120 seconds have passed
+Status of vm_pipe_MB2015-SE1 is ACTIVE with id aa7fc74b-a005-433c-96a5-a2eb305b11fe
+>Thu May 21 23:03:20 2015
+Pausing 1 minute to give vm a chance to initialize
+>Thu May 21 23:04:20 2015
+Copying openstack variables to vm
+ssh-keyscan 172.16.192.18 >> ~/.ssh/known_hosts;rsync /home/ubuntu/.novarc ubuntu@172.16.192.18:/home/ubuntu
+# 172.16.192.18 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2
+# 172.16.192.18 SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2
+Permission denied (publickey).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(226) [sender=3.1.0]
+>Thu May 21 23:04:20 2015
+VM setup for vm_pipe_MB2015-SE1 with IP address 172.16.192.18 with ID aa7fc74b-a005-433c-96a5-a2eb305b11fe successful
+Attaching cinder volume...
+>Thu May 21 23:04:20 2015
+Creating cinder volume REFS_MB2015-SE1 using snapshot ID 6802d1a3-f749-4a26-8d23-f2a892bf7448to vm with ID aa7fc74b-a005-433c-96a5-a2eb305b11fe
+>Thu May 21 23:04:51 2015
+Checking success of volume creation. 30 seconds have passed
+Status of REFS_MB2015-SE1 is available with id 0357187f-4bd4-41cf-b8de-b906f177549a
+VM setup for REFS_MB2015-SE1 with ID 0357187f-4bd4-41cf-b8de-b906f177549a successful.  Attaching to vm
+>Thu May 21 23:04:52 2015
+. /home/ubuntu/.novarc;nova volume-attach aa7fc74b-a005-433c-96a5-a2eb305b11fe 0357187f-4bd4-41cf-b8de-b906f177549a
++----------+--------------------------------------+
+| Property | Value                                |
++----------+--------------------------------------+
+| device   | /dev/vdb                             |
+| id       | 0357187f-4bd4-41cf-b8de-b906f177549a |
+| serverId | aa7fc74b-a005-433c-96a5-a2eb305b11fe |
+| volumeId | 0357187f-4bd4-41cf-b8de-b906f177549a |
++----------+--------------------------------------+
+>Thu May 21 23:04:54 2015
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ubuntu@172.16.192.18 "sh -s" < /home/ubuntu/TOOLS/Scripts/utility/mount.sh "REFS_MB2015-SE1" exit;
+Warning: Permanently added '172.16.192.18' (ECDSA) to the list of known hosts.
+Permission denied (publickey).
+Volume attached.  Go play and have fun!
